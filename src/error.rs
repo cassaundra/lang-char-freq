@@ -7,6 +7,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub enum Error {
     Io(std::io::Error),
     Request(reqwest::Error),
+    Deserialize(toml::de::Error),
 }
 
 impl fmt::Display for Error {
@@ -14,6 +15,7 @@ impl fmt::Display for Error {
         match self {
             Error::Io(err) => write!(f, "io error: {}", err),
             Error::Request(err) => write!(f, "web request error: {}", err),
+            Error::Deserialize(err) => write!(f, "deserialization error: {}", err),
         }
     }
 }
@@ -23,6 +25,7 @@ impl error::Error for Error {
         match self {
             Error::Io(err) => Some(err),
             Error::Request(err) => Some(err),
+            Error::Deserialize(err) => Some(err),
         }
     }
 }
@@ -36,5 +39,11 @@ impl From<std::io::Error> for Error {
 impl From<reqwest::Error> for Error {
     fn from(err: reqwest::Error) -> Self {
         Error::Request(err)
+    }
+}
+
+impl From<toml::de::Error> for Error {
+    fn from(err: toml::de::Error) -> Self {
+        Error::Deserialize(err)
     }
 }

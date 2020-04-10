@@ -1,9 +1,7 @@
 repo_count = 15 
 exclude_chars = ["\n", "\t", " "] # alphanumeric already excluded
 
-[languages]
-    [languages.rust]
-    github_id = "Rust"
-    display_name = "Rust"
-    extensions = ["rs"]
-    exclude_repos = ["rust-lang/rust"]
+[[languages]]
+id = "Rust"
+extensions = ["rs"]
+exclude_repos = ["rust-lang/rust"]

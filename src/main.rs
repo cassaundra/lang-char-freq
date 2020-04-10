@@ -6,6 +6,7 @@ use std::fs::File;
 mod error;
 pub use error::*;
 
+pub mod config;
 pub mod github;
 
 #[tokio::main]
