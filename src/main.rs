@@ -3,10 +3,13 @@ use tar::Archive;
 
 use std::fs::File;
 
+mod error;
+pub use error::*;
+
 pub mod github;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<()> {
     let tmp_dir = std::env::temp_dir().join("lang-char-freq");
     if !tmp_dir.exists() {
         std::fs::create_dir(&tmp_dir)?;

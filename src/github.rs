@@ -1,7 +1,3 @@
-use bytes::buf::ext::BufExt;
-
-use futures::StreamExt;
-
 use serde::Deserialize;
 
 use std::fs::File;
@@ -42,20 +38,18 @@ pub struct Repository {
 
 impl Repository {
     pub fn archive_url(&self) -> String {
-        println!("{}", self.api_url);
         format!("{}/tarball", self.api_url)
     }
 
-    // TODO handle reqwest error as well
-    pub async fn download_archive<P: AsRef<Path>>(&self, dir: &P) -> std::io::Result<PathBuf> {
+    pub async fn download_archive<P: AsRef<Path>>(&self, dir: &P) -> crate::Result<PathBuf> {
         let client = reqwest::Client::new();
         let response = client
             .get(&self.archive_url())
             .header(reqwest::header::USER_AGENT, "reqwest")
             .send()
-            .await.unwrap()
+            .await?
             .bytes()
-            .await.unwrap();
+            .await?;
 
         let path = dir.as_ref().join(format!(
             "{user}-{repo}.tar.gz",
