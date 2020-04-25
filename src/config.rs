@@ -1,13 +1,15 @@
 use serde::Deserialize;
 
+use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
 #[derive(Deserialize)]
 pub struct Config {
     pub repo_count: usize,
+    pub exclude_alphanumeric: bool,
     pub exclude_chars: Vec<char>,
-    pub languages: Vec<Language>,
+    pub languages: BTreeMap<String, Language>,
 }
 
 impl Config {

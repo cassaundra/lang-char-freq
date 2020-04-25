@@ -1,7 +1,8 @@
 repo_count = 15 
-exclude_chars = ["\n", "\t", " "] # alphanumeric already excluded
+exclude_alphanumeric = true
+exclude_chars = ["\n", "\t", " "]
 
-[[languages]]
+[languages.rust]
 id = "Rust"
 extensions = ["rs"]
-exclude_repos = ["rust-lang/rust"]
+exclude_repos = ["996icu/996.ICU", "rust-lang/rust"]
