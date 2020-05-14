@@ -1,8 +1,79 @@
-repo_count = 15 
+repo_count = 10 
 exclude_alphanumeric = true
-exclude_chars = ["\n", "\t", " "]
+exclude_chars = []
+
+[languages.javascript]
+id = "JavaScript"
+extensions = ["js", "mjs", "jsx"] # note that jsx may skew results when measuring pure javascript
+exclude_repos = []
+
+[languages.python]
+id = "Python"
+extensions = ["py"]
+exclude_repos = []
+
+[languages.java]
+id = "Java"
+extensions = ["java"]
+exclude_repos = []
+
+[languages.go]
+id = "Go"
+extensions = ["go"]
+exclude_repos = []
+
+[languages.cpp]
+id = "C++"
+extensions = ["cc", "cpp", "cxx", "c++", "h", "hh", "hpp", "hxx", "h++"] # omitted: .C
+exclude_repos = []
+
+[languages.ruby]
+id = "Ruby"
+extensions = ["rb"]
+exclude_repos = []
+
+[languages.typescript]
+id = "TypeScript"
+extensions = ["ts", "tsx"] # note that tsx may skew results when measuring pure typescript
+exclude_repos = []
+
+[languages.php]
+id = "PHP"
+extensions = ["php", "phtml", "php3", "php4", "php5", "php7", "phps", "php-s", "pht", "phar"]
+exclude_repos = []
+
+[languages.csharp]
+id = "C#"
+extensions = ["cs"]
+exclude_repos = []
+
+[languages.c]
+id = "C"
+extensions = ["c", "h"]
+exclude_repos = []
+
+[languages.scala]
+id = "Scala"
+extensions = ["scala", "sc"]
+exclude_repos = []
+
+# Excluded because of the variance between shell formats
+# [languages.shell]
+# id = "Shell"
+# extensions = ["ebuild", "eclass", "ps1", "psd1", "psm1", "sh", "bash", "bats", "cgi", "command", "fcgi", "ksj", "sh.in", "tmux", "tool", "zsh", "sh-session", "shell", "fish", "tcsh", "csh"] # TODO
+# exclude_repos = []
 
 [languages.rust]
 id = "Rust"
 extensions = ["rs"]
-exclude_repos = ["996icu/996.ICU", "rust-lang/rust"]
+exclude_repos = []
+
+[languages.swift]
+id = "Swift"
+extensions = ["swift"]
+exclude_repos = []
+
+[languages.kotlin]
+id = "Kotlin"
+extensions = ["kt", "kts", "ktm"]
+exclude_repos = []
