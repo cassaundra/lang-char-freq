@@ -1,49 +1,13 @@
-use std::error;
-use std::fmt;
+use err_derive::Error;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Debug)]
+#[derive(Debug, Error)]
 pub enum Error {
-    Io(std::io::Error),
-    Request(reqwest::Error),
-    Deserialize(toml::de::Error),
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Error::Io(err) => write!(f, "io error: {}", err),
-            Error::Request(err) => write!(f, "web request error: {}", err),
-            Error::Deserialize(err) => write!(f, "deserialization error: {}", err),
-        }
-    }
-}
-
-impl error::Error for Error {
-    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
-        match self {
-            Error::Io(err) => Some(err),
-            Error::Request(err) => Some(err),
-            Error::Deserialize(err) => Some(err),
-        }
-    }
-}
-
-impl From<std::io::Error> for Error {
-    fn from(err: std::io::Error) -> Self {
-        Error::Io(err)
-    }
-}
-
-impl From<reqwest::Error> for Error {
-    fn from(err: reqwest::Error) -> Self {
-        Error::Request(err)
-    }
-}
-
-impl From<toml::de::Error> for Error {
-    fn from(err: toml::de::Error) -> Self {
-        Error::Deserialize(err)
-    }
+    #[error(display = "I/O error: {}")]
+    Io(#[error(source)] std::io::Error),
+    #[error(display = "HTTP client error: {}")]
+    Request(#[error(source)] reqwest::Error),
+    #[error(display = "TOML deserialization error: {}")]
+    Deserialize(#[error(source)] toml::de::Error),
 }
